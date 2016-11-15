@@ -20,6 +20,9 @@ class Post(models.Model):
 
     status = models.CharField(max_length=10, choices=STATUS_ENTRADA, default='borrador')
 
+    class Meta:
+        ordering = ('publicado_el',)
+
     def publicar(self):
         """ Gaurda y actualiza fecha de publicacion """
         self.publicado_el = timezone.now()
