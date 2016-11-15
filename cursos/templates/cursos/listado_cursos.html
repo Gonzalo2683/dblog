@@ -1,0 +1,16 @@
+{% extends "cursos/base.html" %}
+
+{% block title %}Listado de Cursos {% endblock title %}
+
+{% block contenido %}
+
+    {% for curso in object_list  %}
+        <h2>{{ curso.titulo }}</h2>
+
+            {% for paso in curso.pasos.all  %}
+            <section>{{ paso.titulo }}</section>
+            {% endfor %}
+        
+    {% endfor %}
+
+{% endblock contenido %}
