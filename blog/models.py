@@ -30,3 +30,21 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.titulo
+
+
+class Comentario(models.Model):
+    """ Modelo para comments """
+    post = models.ForeignKey(Post, related_name='comentarios')
+    nombre = models.CharField(max_length=80)
+    email = models.EmailField()
+    mensaje = models.TextField()
+    creado = models.DateTimeField(auto_now_add=True)
+    actualizado = models.DateTimeField(auto_now=True)
+    activo = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['creado',]
+
+    def __unicode__(self):
+        return 'Comentario por {} en {}'.format(self.nombre, self.post)
+

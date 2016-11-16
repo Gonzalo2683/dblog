@@ -1,19 +1,21 @@
 {% extends "blog/base.html" %}
 
+{% block title %} Listado {% endblock title %}
+
 {% block content %}
 
-<div>
-    <h1><a href="">Django</a></h1>
-</div>
-
-{% for entrada in entradas  %}
-
     <div>
-        <h2><a href="">{{ entrada.titulo}}</a></h2>
-        <p>published: {{ entrada.creado_el}}</p>
-        {{ entrada.contenido }}
+        <h1><a href="">List</a></h1>
     </div>
 
-{% endfor %}
+    {% for entrada in entradas  %}
+
+        <div>
+            <h2><a href="{% url 'detalle_post' pk=entrada.pk %}">{{ entrada.titulo}}</a></h2>
+            <p>publicado: {{ entrada.creado_el}}</p>
+            {{ entrada.contenido }}
+        </div>
+
+    {% endfor %}
 
 {% endblock content %}
