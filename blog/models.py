@@ -6,6 +6,10 @@ from django.conf import settings
 
 # Create your models here.
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='publicado')
+
 class Post(models.Model):
     """ Modelo post """
     STATUS_ENTRADA = (
@@ -20,6 +24,9 @@ class Post(models.Model):
 
     status = models.CharField(max_length=10, choices=STATUS_ENTRADA, default='borrador')
 
+    objects = models.Manager() # The default manager.
+    published = PublishedManager() # Our custom manager.
+
     class Meta:
         ordering = ('publicado_el',)
 
@@ -28,7 +35,7 @@ class Post(models.Model):
         self.publicado_el = timezone.now()
         self.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.titulo
 
 
@@ -45,6 +52,6 @@ class Comentario(models.Model):
     class Meta:
         ordering = ['creado',]
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Comentario por {} en {}'.format(self.nombre, self.post)
 
