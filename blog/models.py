@@ -16,7 +16,7 @@ class Post(models.Model):
         ('borrador', 'Borrador'),
         ('publicado', 'Publicado'),
     )
-    autor = models.ForeignKey(settings.AUTH_USER_MODEL)
+    autor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='usuario')
     titulo = models.CharField(max_length=200)
     contenido = models.TextField()
     creado_el = models.DateTimeField(default=timezone.now)

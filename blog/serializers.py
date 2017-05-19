@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from blog import models
 
 class ComentSerializer(serializers.ModelSerializer):
@@ -9,9 +8,15 @@ class ComentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     comentarios = ComentSerializer(many=True, read_only=True)
+    autor = serializers.SerializerMethodField()                                                              
 
+    def get_autor(self, obj):                                                                                                  
+        return {
+            'nombre': obj.autor.first_name,
+            'apellido': obj.autor.last_name
+        }
     class Meta:
-        fields = (
-            'autor', 'titulo', 'contenido', 'creado_el', 'publicado_el', 'status', 'comentarios'
-        )
         model = models.Post
+        fields = (
+            'autor','titulo', 'contenido', 'creado_el', 'publicado_el', 'status', 'comentarios'
+        )
