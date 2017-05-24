@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.conf import settings
 from blog import models
 
 class ComentSerializer(serializers.ModelSerializer):
@@ -20,3 +21,9 @@ class PostSerializer(serializers.ModelSerializer):
         fields = (
             'full_autor','titulo', 'contenido', 'creado_el', 'publicado_el', 'status', 'comentarios'
         )
+
+
+#class UserSerializer(serializers.ModelSerializer):
+    #class Meta:
+        #model = settings.AUTH_USER_MODEL
+        #fields = ('name',)
