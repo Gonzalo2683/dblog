@@ -1,0 +1,27 @@
+[
+{
+  "model": "blog.post",
+  "pk": 1,
+  "fields": {
+    "autor": 1,
+    "titulo": "Primer Post",
+    "contenido": "Contenido primer post",
+    "creado_el": "2017-05-18T19:49:00Z",
+    "publicado_el": "2017-05-18T19:49:13Z",
+    "status": "publicado"
+  }
+},
+{
+  "model": "blog.comentario",
+  "pk": 1,
+  "fields": {
+    "post": 1,
+    "nombre": "Pepe",
+    "email": "pepito@pepe.com",
+    "mensaje": "Buen post",
+    "creado": "2017-05-25T14:17:08.675Z",
+    "actualizado": "2017-05-25T14:17:08.675Z",
+    "activo": true
+  }
+}
+]

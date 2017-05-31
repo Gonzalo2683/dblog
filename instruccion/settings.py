@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'graphene_django',
     'corsheaders',
     'cursos',
     'blog',
+    'ingredients'
 ]
 
 MIDDLEWARE = [
@@ -140,3 +142,8 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
 )
+
+
+GRAPHENE = {
+    'SCHEMA': 'schema.schema'
+}
