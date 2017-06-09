@@ -5,7 +5,7 @@ from blog import models
 class ComentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Comentario
-        fields = ('nombre', 'email', 'mensaje')
+        fields = ('nombre', 'email', 'mensaje', 'activo')
 
 class PostSerializer(serializers.ModelSerializer):
     comentarios = ComentSerializer(many=True, read_only=True)

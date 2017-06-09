@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^cursos/', include('cursos.urls')),
     url(r'', include('blog.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/v1/', include('blog.urls', namespace='posts_api')),
+    url(r'^api/v1/posts/', include('blog.urls', namespace='posts_api')),
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),
 ]

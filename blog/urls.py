@@ -2,7 +2,8 @@ from django.conf.urls import url, include
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.post_list, name='post_list'),
-    url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='detalle_post'),
-    url(r'^posts/$', views.PostListApi.as_view(), name='post_list_api')
+    url(r'^$', views.ListCreatePost.as_view(), name='post_list'),
+    url(r'(?P<pk>\d+)/$', views.RetriveUpdateDestroyPost.as_view(), name='post_detalle'),
+    url(r'^(?P<post_pk>\d+)/comentarios/$', views.ListCreateComentario.as_view(), name='comentario_list'),
+    url(r'^(?P<post_pk>\d+)/comentarios/(?P<pk>\d+)/$', views.RetriveUpdateDestroyComentario.as_view(), name='comentario_detalle'),
 ]

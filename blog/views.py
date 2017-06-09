@@ -3,10 +3,8 @@ from blog import models
 from .forms import ComentarioForm
 from django import http
 
-from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import generics
 from rest_framework import viewsets
-from rest_framework.response import Response
 
 from blog import serializers
 
@@ -33,20 +31,31 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post, 'comentarios': comentarios, 'cometario_form': cometario_form})
 
 # API VIEWS
-class PostListApi(APIView):
-    def get(self, request, format=None):
-        posts = models.Post.published.all()
-        serializer = serializers.PostSerializer(posts, many=True)
-        return Response(serializer.data)
-        
-    def post(self, request, format=None):
-        serializer = serializers.PostSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+class ListCreatePost(generics.ListCreateAPIView):
+    queryset = models.Post.published.all()
+    serializer_class = serializers.PostSerializer
+    
+    
+class RetriveUpdateDestroyPost(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Post.published.all()
+    serializer_class = serializers.PostSerializer
+    
+    
+class ListCreateComentario(generics.ListCreateAPIView):
+    queryset = models.Comentario.objects.all()
+    serializer_class = serializers.ComentSerializer
+    
+    def get_queryset(self):
+        return self.queryset.filter(post_id=self.kwargs.get('post_pk'))
 
 
-#class UserViewSet(viewsets.ViewSet):
-    #def list(self, request):
-        #queryset = 
+class RetriveUpdateDestroyComentario(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Comentario.objects.all()
+    serializer_class = serializers.ComentSerializer
+    
+    def get_object(self):
+        return get_object_or_404(
+            self.get_queryset(),
+            post_id=self.kwargs.get('post_pk'),
+            pk=self.kwargs.get('pk')
+            )
