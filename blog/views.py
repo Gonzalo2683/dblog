@@ -4,6 +4,7 @@ from .forms import ComentarioForm
 from django import http
 
 from rest_framework.views import APIView
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 
@@ -37,6 +38,13 @@ class PostListApi(APIView):
         posts = models.Post.published.all()
         serializer = serializers.PostSerializer(posts, many=True)
         return Response(serializer.data)
+        
+    def post(self, request, format=None):
+        serializer = serializers.PostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
 
 
 #class UserViewSet(viewsets.ViewSet):
